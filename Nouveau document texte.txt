@@ -1,0 +1,95 @@
+let NamePlayer;
+function setNamePlayer() {
+  const PlayerName = [
+    "Baldur",
+    "Jeanne",
+    "Athena",
+    "Anakin",
+    "Bilbon",
+    "Gandalf",
+    "Luc",
+  ];
+  NamePlayer = PlayerName[Math.floor(Math.random() * PlayerName.length)];
+
+  return `${NamePlayer}`;
+}
+console.log(setNamePlayer);
+
+const players = [
+  {
+    name: "Baldur",
+    life: 50,
+    xp: 7,
+    weapon: 7,
+    shield: 3,
+  },
+  {
+    name: "Jeanne",
+    life: 50,
+    xp: 7,
+    weapon: 3,
+    shield: 7,
+  },
+  {
+    name: "Athena",
+    life: 50,
+    xp: 8,
+    weapon: 6,
+    shield: 4,
+  },
+  {
+    name: "Anakin",
+    life: 50,
+    xp: 8,
+    weapon: 4,
+    shield: 6,
+  },
+];
+
+let attacker;
+let defender;
+
+// To generate random values
+function getRandomValue(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function isAttacker(array) {
+  return (attacker = getRandomValue(0, array.length - 1));
+}
+
+function isDefender(array) {
+  defender = getRandomValue(0, array.length - 1);
+  while (defender == attacker) {
+    defender = getRandomValue(0, array.length - 1);
+  }
+}
+
+isAttacker(players);
+isDefender(players);
+
+// To generate score Attacker
+function getAttackerScore(player) {
+  return players[player].xp + getRandomValue(0, players[player].weapon);
+}
+
+// To generate score Defender
+function getDefenderScore(player) {
+  return players[player].xp + getRandomValue(0, players[player].shield);
+}
+
+// to generate round
+if (getAttackerScore(attacker) > getDefenderScore(defender)) {
+  console.log(
+    `${players[attacker].name} a attaqué ${players[defender].name} et remporte la manche.`
+  );
+  players[defender].life -= getAttackerScore(attacker);
+  console.log(
+    `${players[defender].name} n'a plus que ${players[defender].life} point(s) de vie`
+  );
+} else {
+  console.log(
+    `${players[defender].name} a bloqué l'attaque de ${players[attacker].name}`
+  );
+}
+console.log(players);
